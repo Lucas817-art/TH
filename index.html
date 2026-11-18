@@ -436,6 +436,209 @@ body.gated{overflow:hidden;height:100vh;background:#061627;}
   color:#8A7078;
 }
 
+/* ---- 风险发生日强提醒 ---- */
+.cutoff{
+  margin-top:14px;
+  padding:clamp(22px,3vw,30px) clamp(20px,3vw,30px) clamp(20px,2.6vw,26px);
+  background:linear-gradient(158deg,#F3F8FE 0%,#E9F2FB 56%,#DFEDF9 100%);
+  border:1px solid #C6DAEE;
+  box-shadow:inset 0 3px 0 var(--accent);
+  color:var(--ink);
+  position:relative;
+  overflow:hidden;
+}
+.cutoff::before{
+  content:"";
+  position:absolute;
+  inset:-30%;
+  background-image:
+    repeating-linear-gradient(56deg, rgba(18,73,141,.045) 0 1px, transparent 1px 44px),
+    repeating-linear-gradient(-56deg, rgba(18,73,141,.025) 0 1px, transparent 1px 44px);
+  pointer-events:none;
+}
+.cutoff > *{position:relative;}
+
+.cutoff-head{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:11.5px;
+  font-weight:500;
+  letter-spacing:.18em;
+  color:var(--accent-deep);
+  margin-bottom:12px;
+}
+.cutoff-head svg{width:16px;height:16px;flex:0 0 auto;color:var(--accent);}
+
+.cutoff-title{
+  margin:0 0 9px;
+  font-family:var(--serif);
+  font-size:clamp(18px,2.4vw,23px);
+  font-weight:600;
+  letter-spacing:.03em;
+  line-height:1.55;
+  color:var(--ink);
+}
+.cutoff-desc{
+  margin:0;
+  font-size:13px;
+  font-weight:300;
+  line-height:1.95;
+  color:#3B5069;
+  max-width:64em;
+}
+.cutoff-desc em{
+  font-style:normal;
+  font-weight:500;
+  color:var(--red);
+  box-shadow:inset 0 -.5em 0 rgba(255,194,14,.38);
+}
+
+.cut-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1px;
+  margin:20px 0 0;
+  background:#C6DAEE;
+  border:1px solid #C6DAEE;
+}
+.cut-cell{
+  background:#FFFFFF;
+  padding:15px 15px 17px;
+  min-width:0;
+}
+.cut-cell .lab{
+  font-size:10.5px;
+  letter-spacing:.18em;
+  color:var(--accent);
+  margin-bottom:7px;
+}
+.cut-cell .val{
+  font-family:var(--serif);
+  font-size:clamp(15px,1.9vw,17.5px);
+  font-weight:600;
+  line-height:1.5;
+  color:var(--ink);
+}
+.cut-cell .sub{
+  margin-top:6px;
+  font-size:11.5px;
+  font-weight:300;
+  line-height:1.75;
+  color:#6B7F97;
+}
+
+.cut-cell .src{
+  margin-top:9px;
+  padding-top:7px;
+  border-top:1px dashed #D9E2ED;
+  font-size:10.5px;
+  font-weight:300;
+  line-height:1.6;
+  letter-spacing:.02em;
+  color:#8395A9;
+}
+
+.cut-stop{
+  margin-top:16px;
+  padding:13px 15px;
+  background:#FCEFF0;
+  border-left:3px solid var(--red);
+  font-size:12.5px;
+  font-weight:300;
+  line-height:1.9;
+  color:#6E3B41;
+}
+.cut-stop b{font-weight:600;color:var(--red);letter-spacing:.06em;}
+
+.cut-acts{
+  margin-top:20px;
+  border-top:1px solid #C6DAEE;
+}
+.cut-act{
+  display:grid;
+  grid-template-columns:96px minmax(0,1fr) auto;
+  gap:clamp(12px,2vw,20px);
+  align-items:start;
+  padding:15px 0 16px;
+  border-bottom:1px solid #D9E2ED;
+}
+.cut-act .k{
+  font-family:var(--serif);
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:.06em;
+  color:var(--ink);
+  line-height:1.7;
+}
+.cut-act .k i{
+  display:block;
+  font-style:normal;
+  font-family:var(--sans);
+  font-size:10.5px;
+  letter-spacing:.2em;
+  color:var(--accent);
+  margin-bottom:1px;
+}
+.cut-act .v{
+  font-size:12.5px;
+  font-weight:300;
+  line-height:1.92;
+  color:#3B5069;
+}
+.cut-act .v b{
+  font-weight:600;
+  color:var(--red);
+  letter-spacing:.01em;
+}
+.cut-act .dl{
+  font-size:11.5px;
+  letter-spacing:.06em;
+  color:var(--red);
+  border:1px solid rgba(172,5,29,.4);
+  background:#FCEFF0;
+  padding:5px 9px;
+  white-space:nowrap;
+}
+
+.cut-act.key{
+  margin:0 -14px;
+  padding:14px 14px 15px;
+  background:linear-gradient(90deg,rgba(255,247,219,.96) 0%,rgba(255,250,236,.62) 100%);
+  box-shadow:inset 3px 0 0 #E0B010;
+  border-bottom:1px solid #E6DBAE;
+}
+.cut-act.key .v{color:#3F3315;}
+.cut-act.key .v .hlall{
+  background:rgba(255,203,46,.36);
+  padding:1px 4px 2px;
+  -webkit-box-decoration-break:clone;
+  box-decoration-break:clone;
+}
+
+.cut-foot{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px 18px;
+  margin-top:16px;
+  font-size:11.5px;
+  color:#6B7F97;
+}
+.cut-foot a{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  color:var(--accent);
+  text-decoration:none;
+  border-bottom:1px solid rgba(18,73,141,.35);
+  padding-bottom:1px;
+  transition:color .25s ease, border-color .25s ease;
+}
+.cut-foot a:hover{color:var(--red);border-bottom-color:var(--red);}
+.cut-foot a svg{width:14px;height:14px;display:block;}
+.cut-foot a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+
 /* ---- 免责说明 ---- */
 .disclaimer{
   margin-top:12px;
@@ -503,6 +706,11 @@ body.gated{overflow:hidden;height:100vh;background:#061627;}
   .row .ic svg{width:19px;height:19px;}
   .row.primary .ic{width:44px;height:44px;}
   .row .go{grid-column:2;justify-self:start;margin-top:10px;}
+  .cut-grid{grid-template-columns:minmax(0,1fr);}
+  .cut-act{grid-template-columns:minmax(0,1fr) auto;}
+  .cut-act .k{grid-column:1;grid-row:1;}
+  .cut-act .dl{grid-column:2;grid-row:1;align-self:start;}
+  .cut-act .v{grid-column:1 / -1;grid-row:2;}
 }
 @media (max-width:520px){
   .mast-meta{display:none;}
@@ -613,6 +821,75 @@ body.gated{overflow:hidden;height:100vh;background:#061627;}
           </a>
           <span class="alert-note">外部政府平台 · 排查结果仅供参考，不替代尽职调查</span>
         </div>
+      </div>
+
+      <div class="cutoff">
+        <div class="cutoff-head">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.4" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 7.4v5.5" stroke="currentColor" stroke-width="1.7"/>
+            <circle cx="12" cy="16.3" r="1.05" fill="currentColor"/>
+          </svg>
+          <span>强提醒 · 风险发生日 CUT-OFF DAY</span>
+        </div>
+        <p class="cutoff-title">风险发生日，就是止损日</p>
+        <p class="cutoff-desc">出口信用保险是<em>射幸合同</em>，承保的是“买方会不会违约”这一不确定事项。风险一经发生，赔付基础便由不确定转为确定。条款层面的对应机制是除外责任——<em>知道或应当知道风险已经发生，仍继续向买方出口的损失不赔</em>。保单本身仍然有效，但该买方项下的新增出运不再承保。</p>
+
+        <div class="cut-grid">
+          <div class="cut-cell">
+            <div class="lab">拖欠</div>
+            <div class="val">应付款日 + 30 天</div>
+            <div class="sub">第 31 日即风险发生日，以最早逾期的一笔起算</div>
+            <div class="src">依据 第三十条（八）｜须买方已收到货物</div>
+          </div>
+          <div class="cut-cell">
+            <div class="lab">破产</div>
+            <div class="val">买方进入破产程序之日</div>
+            <div class="sub">收到通知、公开新闻仅为知悉证据</div>
+            <div class="src">依据 第三十条（七）｜须法院受理等客观文件</div>
+          </div>
+          <div class="cut-cell">
+            <div class="lab">拒收</div>
+            <div class="val">买方拒绝接收之日</div>
+            <div class="sub">货物须已出口，且买方依约负有付款义务</div>
+            <div class="src">依据 第三十条（九）｜出运前取消订单不属本项</div>
+          </div>
+        </div>
+
+        <div class="cut-stop">
+          <div><b>停止继续发货。</b>除风险已发生外，买方根本违约、预期违约后仍继续出口的损失同样不赔（第三条（三））；提交《索赔申请书》后，该买方信用限额自动撤销（第四条）。先停，再谈。</div>
+        </div>
+
+        <div class="cut-acts">
+          <div class="cut-act key">
+            <div class="k"><i>01</i>破产</div>
+            <div class="v"><span class="hlall">立即联络法务同事，同时电话报告客户经理。当天回复买方破产通知邮件，随附全部发票，并同步登记债权——买方进入破产程序，被保险人有义务及时在法院或机构登记债权（第二十条）。曾有客户在第 <b>28</b> 天才收到资料，而债权登记第 <b>30</b> 日即截止。</span></div>
+            <div class="dl">15 日内索赔</div>
+          </div>
+          <div class="cut-act">
+            <div class="k"><i>02</i>拒收</div>
+            <div class="v">立即电话报告客户经理，按要求准备货物处置方案，<b>经保险人书面同意后</b>方可处置；货物处理完之前，原则上不予定损核赔（第十二条）。不得无单放货，不得擅自降价或放弃债权。</div>
+            <div class="dl">15 日内索赔</div>
+          </div>
+          <div class="cut-act">
+            <div class="k"><i>03</i>拖欠</div>
+            <div class="v">立即收集《索赔申请书》与《索赔单证明细表》所列单证，同步确定索赔时点与追偿安排。提交索赔后，按第十三条委托保险人追偿或按保险人指示自行追偿，不因买方“下周就付”的承诺推迟索赔。</div>
+            <div class="dl">60 日内索赔</div>
+          </div>
+        </div>
+
+        <div class="cut-foot">
+          <a href="https://lucas817-art.github.io/3.0-claim-handler/" target="_blank" rel="noopener noreferrer">
+            出险后同步使用 · 信保理赔助手
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6.5l5.5 5.5L13 17.5" stroke="currentColor" stroke-width="1.5"/></svg>
+          </a>
+          <span>依据《短期出口信用保险中小企业综合保险（3.0 版）A 款》条款</span>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        <p><span class="mk" aria-hidden="true">📌</span><b>仅供参考。</b>风险发生日与处置时限为个人整理的内部操作提示，非官方解释，不构成保险人的任何承诺或对保单责任的说明。</p>
+        <p><span class="mk" aria-hidden="true">⚖️</span><b>以保单约定为准。</b>风险发生日的认定标准、索赔期限、赔偿比例及相关权利义务，一律以正式<b>保单条款、保险单明细表、批单，以及《信用限额审批单》《信用限额调整通知单》</b>的约定为准（赔偿比例不一致时，以信用限额单证为准）；本提示与上述文件不一致的，以后者为准。</p>
       </div>
     </section>
 
