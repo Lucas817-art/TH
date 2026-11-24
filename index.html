@@ -436,6 +436,70 @@ body.gated{overflow:hidden;height:100vh;background:#061627;}
   color:#8A7078;
 }
 
+/* ---- 反欺诈 · 邮箱 Whois 快捷检索 ---- */
+.whois-box{
+  margin-top:18px;
+  padding-top:16px;
+  border-top:1px dashed rgba(172,5,29,.28);
+}
+.whois-lab{
+  display:block;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.1em;
+  color:var(--red-deep);
+  margin-bottom:9px;
+}
+.whois-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.whois-row input{
+  flex:1 1 220px;
+  min-width:0;
+  padding:10px 13px;
+  font-size:13px;
+  color:var(--ink);
+  background:#fff;
+  border:1px solid rgba(172,5,29,.3);
+  border-radius:0;
+  outline:none;
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.whois-row input::placeholder{color:#A98F96;font-weight:300;}
+.whois-row input:focus{border-color:var(--red);box-shadow:0 0 0 2px rgba(172,5,29,.12);}
+.whois-row button{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:10px 18px;
+  background:var(--red);
+  color:#fff;
+  font-size:13px;
+  letter-spacing:.08em;
+  border:1px solid var(--red);
+  cursor:pointer;
+  transition:background .25s ease, transform .25s ease;
+}
+.whois-row button:hover{background:var(--red-deep);transform:translateX(3px);}
+.whois-row button:focus-visible{outline:2px solid var(--red);outline-offset:3px;}
+.whois-msg{
+  margin:8px 0 0;
+  font-size:12px;
+  line-height:1.7;
+  color:var(--red-deep);
+  min-height:0;
+}
+.whois-hint{
+  margin:7px 0 0;
+  font-size:11.5px;
+  font-weight:300;
+  line-height:1.8;
+  color:#8A7078;
+}
+
 /* ---- 风险发生日强提醒 ---- */
 .cutoff{
   margin-top:14px;
@@ -821,6 +885,15 @@ body.gated{overflow:hidden;height:100vh;background:#061627;}
           </a>
           <span class="alert-note">外部政府平台 · 排查结果仅供参考，不替代尽职调查</span>
         </div>
+        <div class="whois-box">
+          <label class="whois-lab" for="whoisEmail">快捷检索 · 邮箱注册时间（Whois）</label>
+          <div class="whois-row">
+            <input id="whoisEmail" type="email" placeholder="输入对方邮箱，如 buyer@company.com" autocomplete="off" spellcheck="false">
+            <button id="whoisBtn" type="button">一键查询</button>
+          </div>
+          <p class="whois-msg" id="whoisMsg" role="alert"></p>
+          <p class="whois-hint">站长工具按邮箱所属域名查询注册 / 到期时间；whois.com 按完整邮箱地址查询。邮箱账号本身的注册时间不对外公开，结果仅供参考。</p>
+        </div>
       </div>
 
       <div class="cutoff">
@@ -1115,6 +1188,57 @@ body.gated{overflow:hidden;height:100vh;background:#061627;}
     document.body.classList.add('gated');
     setTimeout(function () { input.focus(); }, 120);
   }
+})();
+
+(function () {
+  var input = document.getElementById('whoisEmail');
+  var btn = document.getElementById('whoisBtn');
+  var msg = document.getElementById('whoisMsg');
+  if (!input || !btn || !msg) return;
+
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function setMsg(text) { msg.textContent = text; }
+
+  function parse(raw) {
+    var email = raw.trim().replace(/^mailto:/i, '');
+    if (!EMAIL_RE.test(email)) return null;
+    var domain = email.split('@')[1].toLowerCase().split('/')[0].split(':')[0];
+    domain = domain.replace(/\.$/, '');
+    if (!/^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/.test(domain)) return null;
+    return { email: email.toLowerCase(), domain: domain };
+  }
+
+  function query() {
+    var parsed = parse(input.value);
+    if (!parsed) {
+      setMsg('请输入有效的邮箱地址，例如 buyer@company.com');
+      input.focus();
+      return;
+    }
+    var urls = [
+      'https://whois.chinaz.com/' + parsed.domain,
+      'https://www.whois.com/whois/' + encodeURIComponent(parsed.email)
+    ];
+    var opened = 0;
+    urls.forEach(function (u) {
+      var w = window.open(u, '_blank', 'noopener');
+      if (w) opened++;
+    });
+    if (opened === urls.length) {
+      setMsg('已在新标签页打开：站长工具查询域名「' + parsed.domain + '」，whois.com 查询邮箱「' + parsed.email + '」，请查看注册 / 到期时间。');
+    } else if (opened > 0) {
+      setMsg('部分查询页被浏览器拦截，请允许本站弹出窗口后重试。');
+    } else {
+      setMsg('弹出窗口被浏览器拦截，请允许本站弹出窗口后重试。');
+    }
+  }
+
+  btn.addEventListener('click', query);
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); query(); }
+  });
+  input.addEventListener('input', function () { if (msg.textContent) setMsg(''); });
 })();
 </script>
 </body>
