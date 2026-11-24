@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>信保助手 · TH 公司导航</title>
+<title>信保助手 · 天禾公司导航</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B2A52'/%3E%3Cpath d='M16 5l9 4v7c0 6-3.8 9.6-9 11-5.2-1.4-9-5-9-11V9z' fill='none' stroke='%23A9C6EA' stroke-width='1.8'/%3E%3Cpath d='M11.5 16.5l3 3 6-6.5' fill='none' stroke='%23FFC714' stroke-width='1.8'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://miaoda.feishu.cn">
 <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
@@ -450,6 +450,13 @@ body.gated{overflow:hidden;height:100vh;background:#061627;}
   color:var(--red-deep);
   margin-bottom:9px;
 }
+.whois-risk{
+  margin-left:10px;
+  font-size:11.5px;
+  font-weight:400;
+  letter-spacing:.04em;
+  color:var(--red);
+}
 .whois-row{
   display:flex;
   flex-wrap:wrap;
@@ -820,7 +827,7 @@ body.gated{overflow:hidden;height:100vh;background:#061627;}
           <path d="M12 2.6l7.8 3.4v6.2c0 5.3-3.3 8.5-7.8 9.6-4.5-1.1-7.8-4.3-7.8-9.6V6z" stroke="currentColor" stroke-width="1.3"/>
           <path d="M8.4 11.8l2.6 2.6 4.9-5.2" stroke="currentColor" stroke-width="1.4"/>
         </svg>
-        <span>信保助手 · TH 公司导航</span>
+        <span>信保助手 · 天禾公司导航</span>
       </div>
       <div class="mast-meta">内部使用 · 请勿外传</div>
     </div>
@@ -886,7 +893,7 @@ body.gated{overflow:hidden;height:100vh;background:#061627;}
           <span class="alert-note">外部政府平台 · 排查结果仅供参考，不替代尽职调查</span>
         </div>
         <div class="whois-box">
-          <label class="whois-lab" for="whoisEmail">快捷检索 · 邮箱注册时间（Whois）</label>
+          <label class="whois-lab" for="whoisEmail">快捷检索 · 邮箱注册时间（Whois）<span class="whois-risk">邮箱注册时间短为高风险信号</span></label>
           <div class="whois-row">
             <input id="whoisEmail" type="email" placeholder="输入对方邮箱，如 buyer@company.com" autocomplete="off" spellcheck="false">
             <button id="whoisBtn" type="button">一键查询</button>
@@ -1128,7 +1135,7 @@ body.gated{overflow:hidden;height:100vh;background:#061627;}
     </section>
 
     <footer class="site-foot">
-      <p class="foot-sign">信保助手 · TH 公司导航</p>
+      <p class="foot-sign">信保助手 · 天禾公司导航</p>
       <p>本页仅作工具入口汇总，具体条款与业务口径以公司正式文件为准。邮箱：fengpc@sinosure.com.cn</p>
     </footer>
 
@@ -1227,10 +1234,8 @@ body.gated{overflow:hidden;height:100vh;background:#061627;}
     });
     if (opened === urls.length) {
       setMsg('已在新标签页打开：站长工具查询域名「' + parsed.domain + '」，whois.com 查询邮箱「' + parsed.email + '」，请查看注册 / 到期时间。');
-    } else if (opened > 0) {
-      setMsg('部分查询页被浏览器拦截，请允许本站弹出窗口后重试。');
     } else {
-      setMsg('弹出窗口被浏览器拦截，请允许本站弹出窗口后重试。');
+      setMsg('');
     }
   }
 
